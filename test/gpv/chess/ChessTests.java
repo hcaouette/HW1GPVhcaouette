@@ -103,4 +103,45 @@ class ChessPieceTests
 		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
 	}
 
+	@Test
+	void identifyPatternsTest()
+	{
+		//
+		ChessPiece bq = factory.makePiece(BLACKQUEEN);
+		assertEquals(Pattern.VERTICAL,bq.identifyPattern(0, 3));
+		assertEquals(Pattern.VERTICAL,bq.identifyPattern(0, -1));
+		assertEquals(Pattern.HORIZONTAL,bq.identifyPattern(2,0));
+		assertEquals(Pattern.HORIZONTAL,bq.identifyPattern(-3,0));
+		assertEquals(Pattern.DIAGONAL,bq.identifyPattern(3, 3));
+		assertEquals(Pattern.DIAGONAL,bq.identifyPattern(-2,-2));
+		assertEquals(Pattern.DIAGONAL,bq.identifyPattern(-1,1));
+		assertEquals(Pattern.KNIGHT,bq.identifyPattern(-1,2));
+		assertEquals(Pattern.KNIGHT,bq.identifyPattern(-1,2));
+		assertEquals(Pattern.KNIGHT,bq.identifyPattern(2,-1));
+		assertEquals(Pattern.KNIGHT,bq.identifyPattern(-2,-1));
+		assertEquals(Pattern.UNKNOWN,bq.identifyPattern(-1,4));
+	}
+	
+	@Test
+	void validatePatternsTest()
+	{
+		
+	}
+	
+	@Test
+	void validateBoundariesTest()
+	{
+		ChessPiece bq = factory.makePiece(BLACKQUEEN);
+		assertTrue(bq.validateBoundaries(makeCoordinate(1,1), board));
+		assertTrue(bq.validateBoundaries(makeCoordinate(8,8), board));
+		assertTrue(bq.validateBoundaries(makeCoordinate(1,8), board));
+		assertTrue(bq.validateBoundaries(makeCoordinate(8,1), board));
+		assertFalse(bq.validateBoundaries(makeCoordinate(0,0), board));
+		assertFalse(bq.validateBoundaries(makeCoordinate(-1,2), board));
+		assertFalse(bq.validateBoundaries(makeCoordinate(5,-6), board));
+		assertFalse(bq.validateBoundaries(makeCoordinate(10,5), board));
+		assertFalse(bq.validateBoundaries(makeCoordinate(3,9), board));
+	}
 }
+
+

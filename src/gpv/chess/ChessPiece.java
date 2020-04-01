@@ -69,7 +69,7 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 	public boolean canMove(Coordinate from, Coordinate to, Board b)
 	{
 		//checks to see if the piece will move out of the board's boundaries
-		boolean inBounds = validateBoundaries(to);
+		boolean inBounds = validateBoundaries(to,b);
 		if(!inBounds) {return false;}
 		
 		//calculate distances from 'from' to 'to'
@@ -88,6 +88,28 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 		return false;
 	}
 	
+	/**
+	 * checks to make sure that to is within the board's boundaries
+	 * @param to the Coordinate to from canMove
+	 * @param b  the board being used
+	 * @return boolean whether or not to falls within the board's boundaries
+	 */
+	public boolean validateBoundaries(Coordinate to, Board b) {
+		int minCoord=0;
+		int maxRows=b.getnRows();
+		int maxCols=b.getnColumns();
+		if(minCoord<to.getRow() && to.getRow()<=maxRows && minCoord<to.getColumn() && to.getColumn()<=maxCols) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Based on the xDiff and yDiff between from and to, identifies a movement pattern
+	 * @param xDiff the difference in x-coords of from and to
+	 * @param yDiff the difference in y-coords of from and to
+	 * @return enum Pattern for comparison later in canMove
+	 */
 	Pattern identifyPattern(int xDiff, int yDiff) {
 		if(Math.abs(xDiff) == Math.abs(yDiff)) { return Pattern.DIAGONAL; }
 		else if(xDiff==0 && yDiff!=0) { return Pattern.VERTICAL; }
@@ -96,6 +118,15 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 		else { return Pattern.UNKNOWN; }
 	}
 	
+	/**
+	 * Based on the xDiff and yDiff between from and to, identifies a movement pattern
+	 * @param Pattern the pattern enum determined from identifyPattern()
+	 * @param xDiff the difference in x-coords of from and to
+	 * @param yDiff the difference in y-coords of from and to
+	 * @param to the Coordinate to from canMove
+	 * @param b the board being used
+	 * @return boolean whether or not the pattern given matches this's piece
+	 */
 	public boolean validatePattern(Pattern pattern, int xDiff, int yDiff, Coordinate to, Board b) {
 		//pawn movements
 		if(this.getName()==PieceName.PAWN)
@@ -148,14 +179,7 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 		return false;
 	}
 	
-	public boolean validateBoundaries(Coordinate to) {
-		int minCoord=0;
-		int maxCoord=9;
-		if((minCoord < to.getRow()) && (to.getRow() < maxCoord) && (minCoord < to.getColumn()) && (to.getColumn() < maxCoord)) {
-			return true;
-		}
-		return false;
-	}
+
 
 	/**
 	 * @return the hasMoved
