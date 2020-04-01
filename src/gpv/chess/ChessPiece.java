@@ -68,7 +68,92 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 	@Override
 	public boolean canMove(Coordinate from, Coordinate to, Board b)
 	{
-		// TODO Auto-generated method stub
+		//checks to see if the piece will move out of the board's boundaries
+		boolean inBounds = validateBoundaries(to);
+		if(!inBounds) {return false;}
+		
+		//calculate distances from 'from' to 'to'
+		int x1=from.getRow(),x2=to.getRow(),y1=from.getColumn(),y2=to.getColumn();
+		int xDiff=x2-x1;
+		int yDiff=y2-y1;
+		
+		Pattern pattern = identifyPattern(xDiff,yDiff);
+		if(pattern == Pattern.UNKNOWN) {return false;}
+		
+		//validate whether the piece at 'from' can make the type of move to 'to' 
+		boolean matchPattern = validatePattern(pattern,xDiff,yDiff,to,b);
+		if (!matchPattern) {return false;}
+		
+		
+		return false;
+	}
+	
+	Pattern identifyPattern(int xDiff, int yDiff) {
+		if(Math.abs(xDiff) == Math.abs(yDiff)) { return Pattern.DIAGONAL; }
+		else if(xDiff==0 && yDiff!=0) { return Pattern.VERTICAL; }
+		else if(xDiff!=0 && yDiff==0) { return Pattern.HORIZONTAL; }
+		else if((Math.abs(xDiff) + Math.abs(yDiff))==3) { return Pattern.KNIGHT; }
+		else { return Pattern.UNKNOWN; }
+	}
+	
+	public boolean validatePattern(Pattern pattern, int xDiff, int yDiff, Coordinate to, Board b) {
+		//pawn movements
+		if(this.getName()==PieceName.PAWN)
+		{
+			//vertical movement options
+			if(pattern==Pattern.VERTICAL)
+			{
+				//pawn vertical movement; checking how far it moves
+				//either pawn has not moved and can move 1 or 2 tiles,
+				//or it has, and this is standard pawn 1-movement
+				if((!this.hasMoved() && Math.abs(yDiff)<3) || (this.hasMoved() && Math.abs(yDiff)==1))
+				{
+					//now checking direction by color.
+					if(this.getColor()==PlayerColor.BLACK && yDiff<0)
+					{
+						//pawn is black, and therefore moves "down"
+						return true;
+					}
+					else if(this.getColor()==PlayerColor.WHITE && yDiff>0)
+					{
+						//pawn is white, and therefore moves "up"
+						return true;
+					}
+					//not moving in the right direction for its color
+					else { return false; }
+				}
+				//pawn moves too far
+				else { return false; }
+			}
+			//diagonal movement options, specifically for capturing.
+			else if(pattern==Pattern.DIAGONAL)
+			{
+				//TODO
+				//color & direction
+				//check that there is a piece in the spot w/ to & b
+			}
+			//pawn can only move vertically or diagonally
+			else { return false; }
+		}
+		//King and Queen movements
+		if(this.getName()==PieceName.KING || this.getName()==PieceName.QUEEN)
+		{
+			//now check for pattern types; if it's not V/H/D then return false
+			if(pattern==Pattern.VERTICAL || pattern==Pattern.HORIZONTAL|| pattern==Pattern.DIAGONAL)
+			{
+				
+			}
+			else { return false; }
+		}
+		return false;
+	}
+	
+	public boolean validateBoundaries(Coordinate to) {
+		int minCoord=0;
+		int maxCoord=9;
+		if((minCoord < to.getRow()) && (to.getRow() < maxCoord) && (minCoord < to.getColumn()) && (to.getColumn() < maxCoord)) {
+			return true;
+		}
 		return false;
 	}
 

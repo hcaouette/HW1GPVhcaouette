@@ -50,7 +50,7 @@ public class Board
 		this(maxRows, maxColumns);
 		reset(initializers);
 	}
-	
+
 	/**
 	 * @return the piece at the given coordinate or null if none.
 	 */
@@ -90,6 +90,14 @@ public class Board
 	{
 		return nColumns;
 	}
+	
+	/**
+	 * @return the nRows
+	 */
+	public int getnRows()
+	{
+		return nRows;
+	}
 
 	/**
 	 * @param nRows the nRows to set
@@ -97,5 +105,13 @@ public class Board
 	public void setnRows(int nRows)
 	{
 		this.nRows = nRows;
+	}
+	
+	/**
+	 * @param nColumns the nColumns to set
+	 */
+	public void setnColumns(int nColumns)
+	{
+		this.nRows = nColumns;
 	}
 }
