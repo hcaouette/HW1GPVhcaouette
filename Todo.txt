@@ -1,0 +1,39 @@
+*ultimate goal*
+CanMove()
+---------------------
+
+
+ChessPiece.java
+---------------------
+-verify canMove()
+*verify validateBoundaries()
+*	off right side
+*	off left side
+*	off top
+*	off bottom
+*	combinations
+-verify validatePattern()
+-	Wpawn
+-	Bpawn
+-	rook
+-	bishop
+-	knight
+-	king
+-	queen
+*verify identifyPattern()
+*	vertical
+*	horizontal
+*	diagonal
+*	knight
+*	undefined
+
+ChessPieceFactory.java
+---------------------
+
+
+
+Board.java
+---------------------
+
+Coordinate.java
+---------------------
