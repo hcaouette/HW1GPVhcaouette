@@ -6,11 +6,11 @@ CanMove()
 ChessPiece.java
 ---------------------
 -verify canMove()
-*verify validateBoundaries()
-*	off right side
-*	off left side
-*	off top
-*	off bottom
+*validateBoundaries()
+*	right side
+*	left side
+*	top
+*	bottom
 *	combinations
 -verify validatePattern()
 -	Wpawn

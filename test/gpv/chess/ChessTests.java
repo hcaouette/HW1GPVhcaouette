@@ -95,16 +95,16 @@ class ChessPieceTests
 		assertTrue(bq.hasMoved());
 	}
 	
-	@Test
-	void thisShouldFailOnDelivery()
-	{
-		ChessPiece wk = factory.makePiece(WHITEKING);
-		board.putPieceAt(wk, makeCoordinate(1,5));
-		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
-	}
+//	@Test
+//	void thisShouldFailOnDelivery()
+//	{
+//		ChessPiece wk = factory.makePiece(WHITEKING);
+//		board.putPieceAt(wk, makeCoordinate(1,5));
+//		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
+//	}
 
 	@Test
-	void identifyPatternsTest()
+	void testIdentifyPatterns()
 	{
 		//
 		ChessPiece bq = factory.makePiece(BLACKQUEEN);
@@ -123,25 +123,24 @@ class ChessPieceTests
 	}
 	
 	@Test
-	void validatePatternsTest()
+	void testValidatePatterns()
 	{
 		
 	}
 	
-	@Test
-	void validateBoundariesTest()
-	{
-		ChessPiece bq = factory.makePiece(BLACKQUEEN);
-		assertTrue(bq.validateBoundaries(makeCoordinate(1,1), board));
-		assertTrue(bq.validateBoundaries(makeCoordinate(8,8), board));
-		assertTrue(bq.validateBoundaries(makeCoordinate(1,8), board));
-		assertTrue(bq.validateBoundaries(makeCoordinate(8,1), board));
-		assertFalse(bq.validateBoundaries(makeCoordinate(0,0), board));
-		assertFalse(bq.validateBoundaries(makeCoordinate(-1,2), board));
-		assertFalse(bq.validateBoundaries(makeCoordinate(5,-6), board));
-		assertFalse(bq.validateBoundaries(makeCoordinate(10,5), board));
-		assertFalse(bq.validateBoundaries(makeCoordinate(3,9), board));
-	}
+//	@Test
+//	void testValidateBoundaries()
+//	{
+//		ChessPiece bq = factory.makePiece(BLACKQUEEN);
+//		assertTrue(bq.validateBoundaries(makeCoordinate(1,1), board));
+//		assertTrue(bq.validateBoundaries(makeCoordinate(8,8), board));
+//		assertTrue(bq.validateBoundaries(makeCoordinate(1,8), board));
+//		assertTrue(bq.validateBoundaries(makeCoordinate(8,1), board));
+//		assertFalse(bq.validateBoundaries(makeCoordinate(0,0), board));
+//		assertFalse(bq.validateBoundaries(makeCoordinate(-1,2), board));
+//		assertFalse(bq.validateBoundaries(makeCoordinate(5,-6), board));
+//		assertFalse(bq.validateBoundaries(makeCoordinate(10,5), board));
+//		assertFalse(bq.validateBoundaries(makeCoordinate(3,9), board));
+//	}
 }
-
 

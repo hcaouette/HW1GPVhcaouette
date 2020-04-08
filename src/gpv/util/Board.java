@@ -114,4 +114,20 @@ public class Board
 	{
 		this.nRows = nColumns;
 	}
+	
+	/**
+	 * checks to make sure that to is within the board's boundaries
+	 * @param to the Coordinate to from canMove
+	 * @param b  the board being used
+	 * @return boolean whether or not to falls within the board's boundaries
+	 */
+	public boolean validateBoundaries(Coordinate to) {
+		int minCoord=0;
+//		int maxRows=b.getnRows();
+//		int maxCols=b.getnColumns();
+		if(minCoord<to.getRow() && to.getRow()<=this.nRows && minCoord<to.getColumn() && to.getColumn()<=this.nColumns) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -68,41 +68,26 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 	@Override
 	public boolean canMove(Coordinate from, Coordinate to, Board b)
 	{
-		//checks to see if the piece will move out of the board's boundaries
-		boolean inBounds = validateBoundaries(to,b);
-		if(!inBounds) {return false;}
-		
 		//calculate distances from 'from' to 'to'
 		int x1=from.getRow(),x2=to.getRow(),y1=from.getColumn(),y2=to.getColumn();
-		int xDiff=x2-x1;
-		int yDiff=y2-y1;
-		
+		int xDiff=x2-x1, yDiff=y2-y1;
 		Pattern pattern = identifyPattern(xDiff,yDiff);
+
+		//checks that pattern is not unknown
 		if(pattern == Pattern.UNKNOWN) {return false;}
+		//checks 'to' coordinates against board bounds
+		if(!b.validateBoundaries(to)) {return false;}
 		
-		//validate whether the piece at 'from' can make the type of move to 'to' 
-		boolean matchPattern = validatePattern(pattern,xDiff,yDiff,to,b);
-		if (!matchPattern) {return false;}
+		//validate whether the piece at 'from' can make the type of move to 'to'
+		if (!validatePattern(pattern,xDiff,yDiff,to,b)) {return false;}
 		
+		Move move=new Move(pattern,this);
+		
+//		return move.
 		
 		return false;
 	}
 	
-	/**
-	 * checks to make sure that to is within the board's boundaries
-	 * @param to the Coordinate to from canMove
-	 * @param b  the board being used
-	 * @return boolean whether or not to falls within the board's boundaries
-	 */
-	public boolean validateBoundaries(Coordinate to, Board b) {
-		int minCoord=0;
-		int maxRows=b.getnRows();
-		int maxCols=b.getnColumns();
-		if(minCoord<to.getRow() && to.getRow()<=maxRows && minCoord<to.getColumn() && to.getColumn()<=maxCols) {
-			return true;
-		}
-		return false;
-	}
 	
 	/**
 	 * Based on the xDiff and yDiff between from and to, identifies a movement pattern
@@ -120,7 +105,7 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 	
 	/**
 	 * Based on the xDiff and yDiff between from and to, identifies a movement pattern
-	 * @param Pattern the pattern enum determined from identifyPattern()
+	 * @param pattern the Pattern enum determined from identifyPattern()
 	 * @param xDiff the difference in x-coords of from and to
 	 * @param yDiff the difference in y-coords of from and to
 	 * @param to the Coordinate to from canMove
@@ -197,4 +182,20 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 	{
 		hasMoved = true;
 	}
+	
+//	/**
+//	 * checks to make sure that to is within the board's boundaries
+//	 * @param to the Coordinate to from canMove
+//	 * @param b  the board being used
+//	 * @return boolean whether or not to falls within the board's boundaries
+//	 */
+//	public boolean validateBoundaries(Coordinate to, Board b) {
+//		int minCoord=0;
+//		int maxRows=b.getnRows();
+//		int maxCols=b.getnColumns();
+//		if(minCoord<to.getRow() && to.getRow()<=maxRows && minCoord<to.getColumn() && to.getColumn()<=maxCols) {
+//			return true;
+//		}
+//		return false;
+//	}
 }

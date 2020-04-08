@@ -15,7 +15,10 @@ package gpv.util;
 import static gpv.chess.ChessPieceDescriptor.*;
 import static gpv.util.Coordinate.makeCoordinate;
 import static gpv.util.SquareInitializer.makeSquareInitializer;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.*;
@@ -73,5 +76,19 @@ class BoardTests
 		}
 		
 		return initializers;
+	}
+	
+	@Test
+	void testValidateBoundaries()
+	{
+		assertTrue(theBoard.validateBoundaries(makeCoordinate(1,1)));
+		assertTrue(theBoard.validateBoundaries(makeCoordinate(8,8)));
+		assertTrue(theBoard.validateBoundaries(makeCoordinate(1,8)));
+		assertTrue(theBoard.validateBoundaries(makeCoordinate(8,1)));
+		assertFalse(theBoard.validateBoundaries(makeCoordinate(0,0)));
+		assertFalse(theBoard.validateBoundaries(makeCoordinate(-1,2)));
+		assertFalse(theBoard.validateBoundaries(makeCoordinate(5,-6)));
+		assertFalse(theBoard.validateBoundaries(makeCoordinate(10,5)));
+		assertFalse(theBoard.validateBoundaries(makeCoordinate(3,9)));
 	}
 }
