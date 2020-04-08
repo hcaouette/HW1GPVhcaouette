@@ -78,10 +78,11 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 		//checks 'to' coordinates against board bounds
 		if(!b.validateBoundaries(to)) {return false;}
 		
+		Movement move=new Movement(pattern,this);
+		if(!move.getPPMatch()) { return false; }
+		
 		//validate whether the piece at 'from' can make the type of move to 'to'
 		if (!validatePattern(pattern,xDiff,yDiff,to,b)) {return false;}
-		
-		Move move=new Move(pattern,this);
 		
 //		return move.
 		

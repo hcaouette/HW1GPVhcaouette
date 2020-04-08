@@ -125,68 +125,68 @@ class ChessPieceTests
 	//tests Move's ability to correctly assign p_p_match for the KNIGHT Pattern
 	@Test
 	void testPatternPieceMatchKNIGHT() {
-		Move tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKKNIGHT));
+		Movement tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKKNIGHT));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKPAWN));
+		tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKPAWN));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKROOK));
+		tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKROOK));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKBISHOP));
+		tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKBISHOP));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKKING));
+		tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKKING));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.KNIGHT,factory.makePiece(BLACKQUEEN));
+		tMove = new Movement(Pattern.KNIGHT,factory.makePiece(BLACKQUEEN));
 		assertFalse(tMove.getPPMatch());
 	}
 	
 	//tests Move's ability to correctly assign p_p_match for the VERTICAL Pattern
 	@Test
 	void testPatternPieceMatchVERTICAL() {
-		Move tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKKNIGHT));
+		Movement tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKKNIGHT));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKPAWN));
+		tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKPAWN));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKROOK));
+		tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKROOK));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKBISHOP));
+		tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKBISHOP));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKKING));
+		tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKKING));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.VERTICAL,factory.makePiece(BLACKQUEEN));
+		tMove = new Movement(Pattern.VERTICAL,factory.makePiece(BLACKQUEEN));
 		assertTrue(tMove.getPPMatch());
 	}
 	
 	//tests Move's ability to correctly assign p_p_match for the HORIZONTAL Pattern
 	@Test
 	void testPatternPieceMatchHORIZONTAL() {
-		Move tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKKNIGHT));
+		Movement tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKKNIGHT));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKPAWN));
+		tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKPAWN));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKROOK));
+		tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKROOK));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKBISHOP));
+		tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKBISHOP));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKKING));
+		tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKKING));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.HORIZONTAL,factory.makePiece(BLACKQUEEN));
+		tMove = new Movement(Pattern.HORIZONTAL,factory.makePiece(BLACKQUEEN));
 		assertTrue(tMove.getPPMatch());
 	}
 	
 	//tests Move's ability to correctly assign p_p_match for the DIAGONAL Pattern
 	@Test
 	void testPatternPieceMatchDIAGONAL() {
-		Move tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKKNIGHT));
+		Movement tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKKNIGHT));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKPAWN));
+		tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKPAWN));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKROOK));
+		tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKROOK));
 		assertFalse(tMove.getPPMatch());
-		tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKBISHOP));
+		tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKBISHOP));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKKING));
+		tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKKING));
 		assertTrue(tMove.getPPMatch());
-		tMove = new Move(Pattern.DIAGONAL,factory.makePiece(BLACKQUEEN));
+		tMove = new Movement(Pattern.DIAGONAL,factory.makePiece(BLACKQUEEN));
 		assertTrue(tMove.getPPMatch());
 	}
 	

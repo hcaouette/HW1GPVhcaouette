@@ -27,9 +27,12 @@ ChessPiece.java
 *	knight
 *	undefined
 
-ChessPieceFactory.java
+Movement.java
 ---------------------
-
+*	KNIGHT matches correctly
+*	VERTICAL matches correctly
+*	HORIZONTAL matches correctly
+*	DIAGONAL matches correctly
 
 
 Board.java

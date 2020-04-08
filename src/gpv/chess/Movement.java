@@ -8,13 +8,13 @@ package gpv.chess;
  * 
  * @version April 8, 2020
  */
-public class Move {
+public class Movement {
 
 	private Pattern pattern;
 	private ChessPiece piece;
 	private boolean p_p_Match;
 	
-	public Move(Pattern pattern, ChessPiece piece) {
+	public Movement(Pattern pattern, ChessPiece piece) {
 		this.pattern=pattern;
 		this.piece=piece;
 		this.p_p_Match=patternPieceMatch();
