@@ -1,31 +1,49 @@
-*ultimate goal*
-CanMove()
----------------------
+TODO List
+
+key
+-	incomplete
+*	complete
 
 
-ChessPiece.java
+Board.java
 ---------------------
--verify canMove()
 *validateBoundaries()
 *	right side
 *	left side
 *	top
 *	bottom
 *	combinations
--verify move-ability()
--	Wpawn
--	Bpawn
--	rook
--	bishop
--	knight
--	king
--	queen
+
+
+ChessPiece.java
+---------------------
 *verify identifyPattern()
-*	vertical
-*	horizontal
-*	diagonal
+*	Vertical
+*	Horizontal
+*	Diagonal
+*	Knight
+*	Unknown
+*verify obstructionFree()
+*	Knight
+*	Vertical
+*	Horizontal
+*	Diagonal
+*verify canCastle()
+*	King
+*	Rook
+*	already moved pieces Fail
+*other conditions
+*	verify pawn directions
+*	verify pawn double-step
+*	verify king 1-length limit
+*canMove()
+*	pawn(in the specific pawn tests)
+*	king
+*	queen
+*	rook
 *	knight
-*	undefined
+*	bishop
+
 
 Movement.java
 ---------------------
@@ -33,10 +51,3 @@ Movement.java
 *	VERTICAL matches correctly
 *	HORIZONTAL matches correctly
 *	DIAGONAL matches correctly
-
-
-Board.java
----------------------
-
-Coordinate.java
----------------------

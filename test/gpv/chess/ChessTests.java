@@ -95,13 +95,6 @@ class ChessPieceTests
 		assertTrue(bq.hasMoved());
 	}
 	
-	@Test
-	void thisShouldFailOnDelivery()
-	{
-		ChessPiece wk = factory.makePiece(WHITEKING);
-		board.putPieceAt(wk, makeCoordinate(1,5));
-		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
-	}
 
 	@Test
 	void testIdentifyPatterns()
@@ -190,11 +183,6 @@ class ChessPieceTests
 		assertTrue(tMove.getPPMatch());
 	}
 	
-	@Test
-	void testValidatePatterns()
-	{
-		
-	}
 	
 	@Test
 	void checkObstructions() {
@@ -273,12 +261,119 @@ class ChessPieceTests
 		board.putPieceAt(wk, makeCoordinate(2, 5));
 		wr.setHasMoved();
 		assertFalse(wr.canCastle(makeCoordinate(1,5),board));
+		assertFalse(wr.obstructionFree(Pattern.HORIZONTAL,makeCoordinate(2,1),makeCoordinate(2,5),board));
 		wk.setHasMoved();
+		assertFalse(wk.obstructionFree(Pattern.HORIZONTAL,makeCoordinate(2,5),makeCoordinate(2,1),board));
 		assertFalse(wk.canCastle(makeCoordinate(1,1),board));
 		
 	}
 	
+	@Test
+	void checkPawnDIAGONAL()
+	{
+		ChessPiece bk = factory.makePiece(BLACKKING);
+		ChessPiece wk = factory.makePiece(WHITEKING);
+		ChessPiece wp = factory.makePiece(WHITEPAWN);
+		board.putPieceAt(bk, makeCoordinate(2, 1));
+		board.putPieceAt(wp, makeCoordinate(1, 2));
+		board.putPieceAt(wk, makeCoordinate(2, 3));
+		assertTrue(wp.canMove(makeCoordinate(1,2), makeCoordinate(2, 1), board));
+		assertFalse(wp.canMove(makeCoordinate(1,2), makeCoordinate(2, 3), board));
+		
+		//cannot diagonal into an empty spot
+		board.putPieceAt(wp, makeCoordinate(1, 4));
+		assertFalse(wp.canMove(makeCoordinate(1,4), makeCoordinate(2, 5), board));
+		
+		//regular straight-ahead, just to check
+		assertTrue(wp.canMove(makeCoordinate(1,4), makeCoordinate(2, 4), board));
+	}
 	
+	@Test
+	void checkPawnOTHER()
+	{
+		ChessPiece wp = factory.makePiece(WHITEPAWN);
+		ChessPiece bp = factory.makePiece(BLACKPAWN);
+		board.putPieceAt(wp, makeCoordinate(2,2));
+		board.putPieceAt(bp, makeCoordinate(6,6));
+		
+		//upwards white pawn
+		assertTrue(wp.canMove(makeCoordinate(2,2), makeCoordinate(4, 2), board));
+		assertFalse(wp.canMove(makeCoordinate(2,2), makeCoordinate(1, 2), board));
+		wp.setHasMoved();
+		assertFalse(wp.canMove(makeCoordinate(2,2), makeCoordinate(4, 2), board));
+		
+		//downwards black pawn
+		assertTrue(bp.canMove(makeCoordinate(6,6), makeCoordinate(4, 6), board));
+		assertFalse(bp.canMove(makeCoordinate(6,6), makeCoordinate(7, 6), board));
+		bp.setHasMoved();
+		assertFalse(bp.canMove(makeCoordinate(6,6), makeCoordinate(4, 6), board));
+	}
+	
+	
+	@Test
+	void checkCanMoveKing()
+	{
+		ChessPiece wk = factory.makePiece(WHITEKING);
+		board.putPieceAt(wk, makeCoordinate(2,5));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(3, 5), board));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(2, 6), board));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(1, 4), board));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(3, 4), board));
+		assertFalse(wk.canMove(makeCoordinate(2,5), makeCoordinate(4, 5), board));
+		assertFalse(wk.canMove(makeCoordinate(2,5), makeCoordinate(4, 7), board));
+	}
+	
+	@Test
+	void checkCanMoveQueen()
+	{
+		ChessPiece wq = factory.makePiece(WHITEQUEEN);
+		board.putPieceAt(wq, makeCoordinate(2,5));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(3, 5), board));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(2, 6), board));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(1, 4), board));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(3, 4), board));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(4, 5), board));
+		assertTrue(wq.canMove(makeCoordinate(2,5), makeCoordinate(4, 7), board));
+		assertFalse(wq.canMove(makeCoordinate(2,5), makeCoordinate(4,6), board)); //knight move
+	}
+	
+	@Test
+	void checkCanMoveRook()
+	{
+		ChessPiece wr = factory.makePiece(WHITEROOK);
+		board.putPieceAt(wr, makeCoordinate(2,5));
+		assertTrue(wr.canMove(makeCoordinate(2,5), makeCoordinate(3, 5), board));
+		assertTrue(wr.canMove(makeCoordinate(2,5), makeCoordinate(5, 5), board));
+		assertTrue(wr.canMove(makeCoordinate(2,5), makeCoordinate(3, 5), board));
+		assertTrue(wr.canMove(makeCoordinate(2,5), makeCoordinate(6, 5), board));
+		assertFalse(wr.canMove(makeCoordinate(2,5), makeCoordinate(4, 6), board)); //diagonals
+		assertFalse(wr.canMove(makeCoordinate(2,5), makeCoordinate(1, 7), board)); //diagonals
+		assertFalse(wr.canMove(makeCoordinate(2,5), makeCoordinate(4,6), board)); //knight move
+	}
+	
+	@Test
+	void checkCanMoveKnight()
+	{
+		ChessPiece wk = factory.makePiece(WHITEKNIGHT);
+		board.putPieceAt(wk, makeCoordinate(2,5));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(4,6), board));
+		assertTrue(wk.canMove(makeCoordinate(2,5), makeCoordinate(1,3), board));
+		assertFalse(wk.canMove(makeCoordinate(2,5), makeCoordinate(2,7), board)); //horizontal
+		assertFalse(wk.canMove(makeCoordinate(2,5), makeCoordinate(4,7), board)); //diagonal
+		assertFalse(wk.canMove(makeCoordinate(2,5), makeCoordinate(4,5), board)); //vertical
+	}
+	
+	@Test
+	void checkCanMoveBishop()
+	{
+		ChessPiece wb = factory.makePiece(WHITEBISHOP);
+		board.putPieceAt(wb, makeCoordinate(2,5));
+		assertTrue(wb.canMove(makeCoordinate(2,5), makeCoordinate(4, 7), board));
+		assertTrue(wb.canMove(makeCoordinate(2,5), makeCoordinate(1, 4), board));
+		assertFalse(wb.canMove(makeCoordinate(2,5), makeCoordinate(4,6), board)); //knight move
+		assertFalse(wb.canMove(makeCoordinate(2,5), makeCoordinate(2,7), board)); //horizontal
+		assertFalse(wb.canMove(makeCoordinate(2,5), makeCoordinate(4,5), board)); //vertical
+	}
 
 }
 
