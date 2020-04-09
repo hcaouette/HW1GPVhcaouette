@@ -95,13 +95,13 @@ class ChessPieceTests
 		assertTrue(bq.hasMoved());
 	}
 	
-//	@Test
-//	void thisShouldFailOnDelivery()
-//	{
-//		ChessPiece wk = factory.makePiece(WHITEKING);
-//		board.putPieceAt(wk, makeCoordinate(1,5));
-//		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
-//	}
+	@Test
+	void thisShouldFailOnDelivery()
+	{
+		ChessPiece wk = factory.makePiece(WHITEKING);
+		board.putPieceAt(wk, makeCoordinate(1,5));
+		assertTrue(wk.canMove(makeCoordinate(1,5), makeCoordinate(2, 5), board));
+	}
 
 	@Test
 	void testIdentifyPatterns()
@@ -195,6 +195,64 @@ class ChessPieceTests
 	{
 		
 	}
+	
+	@Test
+	void checkObstructions() {
+		ChessPiece wq = factory.makePiece(WHITEQUEEN);
+		ChessPiece bq = factory.makePiece(BLACKQUEEN);
+		ChessPiece bk = factory.makePiece(BLACKKNIGHT);
+		
+		board.putPieceAt(wq, makeCoordinate(2, 2));
+		board.putPieceAt(bq, makeCoordinate(6, 2));
+		
+		//KNIGHT cases
+		//safely capture wq
+		assertTrue(bk.obstructionFree(Pattern.KNIGHT, makeCoordinate(3,4), makeCoordinate(2,2), board));
+		//cannot capture bq
+		assertFalse(bk.obstructionFree(Pattern.KNIGHT, makeCoordinate(1,4), makeCoordinate(6,2), board));
+		
+		//VERTICAL cases
+		assertTrue(wq.obstructionFree(Pattern.VERTICAL, makeCoordinate(2,2), makeCoordinate(6,2), board));
+		assertTrue(bq.obstructionFree(Pattern.VERTICAL, makeCoordinate(6,2), makeCoordinate(2,2), board));
+		
+		//move the knight inbetween the queens and run again.
+		board.putPieceAt(bk, makeCoordinate(4,2));
+		assertFalse(wq.obstructionFree(Pattern.VERTICAL, makeCoordinate(2,2), makeCoordinate(6,2), board));
+		assertFalse(bq.obstructionFree(Pattern.VERTICAL, makeCoordinate(6,2), makeCoordinate(2,2), board));
+
+		
+		//HORIZONTAL cases
+		board.putPieceAt(wq, makeCoordinate(2, 2));
+		board.putPieceAt(bq, makeCoordinate(2, 6));
+		assertTrue(wq.obstructionFree(Pattern.HORIZONTAL, makeCoordinate(2,2), makeCoordinate(2,6), board));
+		assertTrue(bq.obstructionFree(Pattern.HORIZONTAL, makeCoordinate(2,6), makeCoordinate(2,2), board));
+		
+		//move the knight inbetween the queens and run again
+		board.putPieceAt(bk, makeCoordinate(2,4));
+		assertFalse(wq.obstructionFree(Pattern.HORIZONTAL, makeCoordinate(2,2), makeCoordinate(2,6), board));
+		assertFalse(bq.obstructionFree(Pattern.HORIZONTAL, makeCoordinate(2,6), makeCoordinate(2,2), board));
+
+		
+		//DIAGONAL cases
+		board.putPieceAt(wq, makeCoordinate(2, 2)); //bottom left
+		board.putPieceAt(bq, makeCoordinate(6, 6)); //top right
+		assertTrue(wq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(2,2), makeCoordinate(6,6), board));
+		assertTrue(bq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(6,6), makeCoordinate(2,2), board));
+
+		board.putPieceAt(wq, makeCoordinate(6, 2)); //top left
+		board.putPieceAt(bq, makeCoordinate(2, 6)); //bottom right
+		assertTrue(wq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(6,2), makeCoordinate(2,6), board));
+		assertTrue(bq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(2,6), makeCoordinate(6,2), board));
+		
+		board.putPieceAt(bk, makeCoordinate(4,4)); // knight in-between
+		assertFalse(wq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(6,2), makeCoordinate(2,6), board));
+		assertFalse(bq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(2,6), makeCoordinate(6,2), board));
+		assertFalse(wq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(2,2), makeCoordinate(6,6), board));
+		assertFalse(bq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(6,6), makeCoordinate(2,2), board));
+		
+		//CASTLING
+	}
+	
 	
 
 }

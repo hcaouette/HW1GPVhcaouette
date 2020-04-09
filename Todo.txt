@@ -12,7 +12,7 @@ ChessPiece.java
 *	top
 *	bottom
 *	combinations
--verify validatePattern()
+-verify move-ability()
 -	Wpawn
 -	Bpawn
 -	rook

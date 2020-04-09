@@ -20,13 +20,24 @@ public class Movement {
 		this.p_p_Match=patternPieceMatch();
 	}
 	
-	//getter helper methods
-	//there are no setters
+	/**
+	 * @return the Pattern
+	 */
 	public Pattern getPattern() { return this.pattern; }
+	/**
+	 * @return the ChessPiece
+	 */
 	public ChessPiece getPiece() { return this.piece; }
+	/**
+	 * @return boolean whether or not Pattern & ChessPiece match
+	 */
 	public boolean getPPMatch() { return this.p_p_Match; }
 	
-	public boolean patternPieceMatch() {
+	
+	/**
+	 * @return the whether or not the Pattern & ChessPiece match
+	 */
+	private boolean patternPieceMatch() {
 		if(this.pattern== Pattern.KNIGHT && this.piece.getName()==PieceName.KNIGHT) { return true;}
 		
 		if(this.pattern== Pattern.DIAGONAL)
