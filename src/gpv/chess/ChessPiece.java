@@ -154,23 +154,25 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 		if(pattern==Pattern.HORIZONTAL)
 		{
 			int range=tCol-fCol;
-			if(range>0) //moving upwards
+			if(range>0) //moving rightwards
 			{
 				for(int i=1;i<=Math.abs(range);i++)
 				{
 					int newCol=fCol+i;
 					ChessPiece test=(ChessPiece) b.getPieceAt(makeCoordinate(fRow,newCol));
 					if(canCap && (newCol==tCol)) {return true;}
+					else if(canCastle(to,b)) {return true;}
 					else if(test!=null) {return false;}
 					
 				}
-			}else if(range<0) //moving downwards
+			}else if(range<0) //moving leftwards
 			{
 				for(int i=1;i<=Math.abs(range);i++)
 				{
 					int newCol=fCol-i;
 					ChessPiece test=(ChessPiece) b.getPieceAt(makeCoordinate(fRow,newCol));
 					if(canCap && (newCol==tCol)) {return true;}
+					else if(canCastle(to,b)) {return true;}
 					else if(test!=null) {return false;}
 				}
 			}
@@ -226,8 +228,20 @@ public class ChessPiece implements Piece<ChessPieceDescriptor>
 			}
 		}
 		
-		
 		return false;
+	}
+	
+	public boolean canCastle(Coordinate to, Board b)
+	{
+		ChessPiece target =(ChessPiece) b.getPieceAt(to);
+		if(this.hasMoved() || target.hasMoved()) {return false;}
+		
+		boolean tIsKing = (target.getName() == PieceName.KING);
+		boolean tIsRook = (target.getName() == PieceName.ROOK);
+		
+		if(tIsKing && this.getName()==PieceName.ROOK) {return true;}
+		else if(tIsRook && this.getName()==PieceName.KING) {return true;}
+		else {return false;}
 	}
 	
 	/**

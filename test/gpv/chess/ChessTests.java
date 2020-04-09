@@ -250,7 +250,32 @@ class ChessPieceTests
 		assertFalse(wq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(2,2), makeCoordinate(6,6), board));
 		assertFalse(bq.obstructionFree(Pattern.DIAGONAL, makeCoordinate(6,6), makeCoordinate(2,2), board));
 		
-		//CASTLING
+	}
+	
+	@Test
+	void checkCastling()
+	{
+		ChessPiece wk = factory.makePiece(WHITEKING);
+		ChessPiece wr = factory.makePiece(WHITEROOK);
+		ChessPiece wq = factory.makePiece(WHITEQUEEN);
+		
+		board.putPieceAt(wr, makeCoordinate(1, 1));
+		board.putPieceAt(wk, makeCoordinate(1, 5));
+		assertTrue(wr.canCastle(makeCoordinate(1,5),board));
+		assertTrue(wk.canCastle(makeCoordinate(1,1),board));
+		
+		board.putPieceAt(wq, makeCoordinate(1,3));
+		assertFalse(wr.obstructionFree(Pattern.HORIZONTAL,makeCoordinate(1,1),makeCoordinate(1,5),board));
+		assertFalse(wk.obstructionFree(Pattern.HORIZONTAL,makeCoordinate(1,5),makeCoordinate(1,1),board));
+		
+		
+		board.putPieceAt(wr, makeCoordinate(2, 1));
+		board.putPieceAt(wk, makeCoordinate(2, 5));
+		wr.setHasMoved();
+		assertFalse(wr.canCastle(makeCoordinate(1,5),board));
+		wk.setHasMoved();
+		assertFalse(wk.canCastle(makeCoordinate(1,1),board));
+		
 	}
 	
 	
